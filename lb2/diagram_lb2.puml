@@ -1,0 +1,58 @@
+@startuml diagram_lb2
+
+hide circle
+skinparam classAttributeIconSize 0
+
+class Cell {
+  - passability_: bool
+  --
+  + get_passability(): bool
+  + set_passability(passability: bool): void
+  + operator=(other: const Cell&): Cell&
+  + operator=(other: Cell&&): Cell&
+  + Cell(other: const Cell&)
+  + Cell(other: Cell&&)
+  + Cell(passability: bool = true)
+}
+
+class Field {
+  - cells_: Cell**
+  - width_: int
+  - height_: int
+  - entrance_x_: int
+  - entrance_y_: int
+  - exit_x_: int
+  - exit_y_: int
+  --
+  + check(x: int, y: int): bool
+  + get_width(): int
+  + get_height(): int
+  + get_cell(x: int, y: int): Cell&
+  + get_entrance_x(): int
+  + get_entrance_y(): int
+  + set_entrance(x: int, y: int): void
+  + set_exit(x: int, y: int): void
+  + print_field(player: Player&): void
+  + operator=(other: const Field&): Field&
+  + operator=(othe: Field&&): Field&
+  + Field(other: const Field&)
+  + Field(other: Field&&)
+  + Field(width: int = MIN_WIDTH, height: int = MIN_HEIGHT)
+  + ~Field()
+}
+
+class Control {
+  - player_: Player&
+  - field_: field&
+  --
+  + range(int val, int min, int max): int
+  + move(direction: Directions, step_move: int = 1): void
+  + remove_health(): void
+  + add_score(step_score: int): void
+  + Control(player: Player&, field: Field&)
+}
+
+Field *-- Cell : cells_
+Control o-- Field : field_
+
+@enduml
