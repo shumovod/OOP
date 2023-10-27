@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "headers/control.h"
 #include "headers/field_creator.h"
 
