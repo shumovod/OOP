@@ -1,0 +1,40 @@
+@startuml diagram_lb3
+
+hide circle
+left to right direction
+skinparam classAttributeIconSize 0
+
+abstract class Event {
+    + execute(control: Control&): virtual void
+    + create(): Event*
+}
+
+class EventHealth {
+    + execute(control: Control&): void override
+    + create(): Event*
+}
+
+class EventMove {
+    + execute(control: Control&): void override
+    + create(): Event*
+}
+
+class EventScore {
+    + execute(control: Control&): void override
+    + create(): Event*
+}
+
+class FieldCreator {
+    - event_h_: EventHealth
+    - event_s_: EventScore
+    - event_m_: EventMove
+    --
+    + level_one(): Field
+    + level_two(): Field
+}
+
+Event <|.. EventHealth
+Event <|.. EventMove
+Event <|.. EventScore
+
+@enduml
