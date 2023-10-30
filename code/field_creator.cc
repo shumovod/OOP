@@ -15,9 +15,9 @@ Field FieldCreator::level_one() {
     field.get_cell(3, 1).set_passability(false);
     field.get_cell(3, 3).set_passability(false);
 
-    field.get_cell(1, 4).set_event(event_m_ -> create());
-    field.get_cell(3, 4).set_event(event_h_ -> create());
-    field.get_cell(2, 0).set_event(event_s_ -> create());
+    field.get_cell(1, 4).set_event(event_m_.create());
+    field.get_cell(3, 4).set_event(event_h_.create());
+    field.get_cell(2, 0).set_event(event_s_.create());
 
     return field;
 }
@@ -36,9 +36,9 @@ Field FieldCreator::level_two() {
     field.get_cell(3, 1).set_passability(false);
     field.get_cell(4, 3).set_passability(false);
 
-    field.get_cell(1, 0).set_event(event_m_ -> create());
-    field.get_cell(3, 0).set_event(event_h_ -> create());
-    field.get_cell(4, 4).set_event(event_s_ -> create());
+    field.get_cell(1, 0).set_event(event_m_.create());
+    field.get_cell(3, 0).set_event(event_h_.create());
+    field.get_cell(4, 4).set_event(event_s_.create());
 
     return field;
 }

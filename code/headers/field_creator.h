@@ -12,9 +12,9 @@ class FieldCreator {
     Field level_two();
 
  private: 
-    EventHealth* event_h_;
-    EventScore* event_s_;
-    EventMove* event_m_;
+    EventHealth event_h_;
+    EventScore event_s_;
+    EventMove event_m_;
 };
 
 #endif
