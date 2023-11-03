@@ -2,14 +2,6 @@
 
 #include "headers/control.h"
 
-int Control::range(int val, int min, int max) const {
-    if (val < min)
-        val = min;
-    else if (val > max)
-        val = max;
-    return val;
-}
-
 void Control::move(Directions direction, int step_move) {
     int x = player_.get_x();
     int y = player_.get_y();
@@ -31,14 +23,11 @@ void Control::move(Directions direction, int step_move) {
             break;
     }
 
-    int normal_x = range(x, MIN_X, field_.get_width());
-    int normal_y = range(y, MIN_Y, field_.get_height());
-
-    if (field_.get_cell(normal_x, normal_y).get_passability()) {
-        player_.set_x(normal_x);
-        player_.set_y(normal_y);
-        if (field_.get_cell(normal_x, normal_y).get_event())
-            field_.get_cell(normal_x, normal_y).execute_event(*this);
+    if (field_.get_cell(x, y).get_passability() && field_.check(x, y)) {
+        player_.set_x(x);
+        player_.set_y(y);
+        if (field_.get_cell(x, y).get_event())
+            field_.get_cell(x, y).execute_event(*this);
     }
 }
 

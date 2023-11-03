@@ -9,8 +9,6 @@
 
 class Control {
  public:
-   int range(int val, int min, int max) const;
-
    void move(Directions direction, int step_move = 1);
    void remove_health();
    void add_score();

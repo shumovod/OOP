@@ -1,7 +1,7 @@
-all: game clean
+all: prog clean
 
-game: player control cell field event_health event_score event_move field_creator main
-	g++ player.o control.o cell.o field.o event_health.o event_score.o event_move.o field_creator.o main.o -o game
+prog: player control cell field event_health event_score event_move field_creator game main
+	g++ player.o control.o cell.o field.o event_health.o event_score.o event_move.o field_creator.o game.o main.o -o prog
 
 main: main.cc headers/player.h headers/directions.h headers/control.h headers/cell.h headers/field.h
 	g++ -c main.cc
@@ -30,5 +30,8 @@ event_move: event_move.cc headers/event.h headers/control.h headers/event_move.h
 field_creator: field_creator.cc headers/field_creator.h headers/control.h
 	g++ -c field_creator.cc
 
+game: game.cc headers/game.h headers/field_creator.h headers/control.h headers/directions.h
+	g++ -c game.cc
+
 clean:
-	rm main.o player.o control.o cell.o field.o event_health.o event_score.o event_move.o field_creator.o
+	rm main.o player.o control.o cell.o field.o event_health.o event_score.o event_move.o field_creator.o game.o
