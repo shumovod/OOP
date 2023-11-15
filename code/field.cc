@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "headers/field.h"
 
 bool Field::check(int x, int y) const {

@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "headers/control.h"
 
 void Control::move(Directions direction, int step_move) {

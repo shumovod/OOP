@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "headers/cell.h"
 
 bool Cell::get_passability() const {

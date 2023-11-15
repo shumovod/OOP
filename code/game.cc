@@ -1,27 +1,24 @@
-#include <iostream>
-
 #include "headers/game.h"
-#include "headers/field.h"
 
 void Game::start() {
     std::cout << "Welcome to the Game!" << std::endl;
-    chooseLevel();
+    choose_level();
     play();
     end();
 }
 
-void Game::chooseLevel() {
-    int level;
+void Game::choose_level() {
+    Actions action;
     while (true) {
-        std::cout << "Choose a level (1 or 2): ";
-        std::cin >> level;
+        std::cout << "Choose a level (1 or 2): " << std::endl;
+        action = handler_.get_action();
 
-        if (level == 1) {
-            field_ = fieldCreator_.level_one();
+        if (action == Actions::kLevel1) {
+            field_ = field_creator_.level_one();
             break;
-        } else if (level == 2) {
-            field_ = fieldCreator_.level_two();
-            break;
+        } else if (action == Actions::kLevel2) {
+            field_ = field_creator_.level_two();
+            break;  
         } else {
             std::cout << "Invalid level. Try again." << std::endl;
             continue;
@@ -31,6 +28,8 @@ void Game::chooseLevel() {
 
 void Game::play() {
     Control control(player_, field_);
+    Actions action;
+    Directions direction;
 
     while (true) {
         player_.print_characteristics();
@@ -46,43 +45,46 @@ void Game::play() {
             break;
         }
 
-        char direction;
-        std::cout << "Enter direction (W - up, A - left, S - down, D - right): ";
-        std::cin >> direction;
+        std::cout << "Enter direction (w - up, a - left, s - down, d - right, q - quit): " << std::endl;
+        action = handler_.get_action();
 
-        Directions moveDirection;
-        switch (direction) {
-            case 'W':
-                moveDirection = Directions::kUp;
+        if (action == Actions::kQuit)
+            break;
+
+        switch (action) {
+            case Actions::kMoveUp:
+                direction = Directions::kUp;
                 break;
-            case 'A':
-                moveDirection = Directions::kLeft;
+            case Actions::kMoveLeft:
+                direction = Directions::kLeft;
                 break;
-            case 'S':
-                moveDirection = Directions::kDown;
+            case Actions::kMoveDown:
+                direction = Directions::kDown;
                 break;
-            case 'D':
-                moveDirection = Directions::kRight;
+            case Actions::kMoveRight:
+                direction = Directions::kRight;
                 break;
             default:
-                std::cout << "Invalid direction. Try again." << std::endl;
                 continue;
         }
-
-        control.move(moveDirection);
+        control.move(direction);
     }
-    std::cout << "check" << std::endl;
 }
 
 void Game::end() {
-    char choice;
-    std::cout << "Do you want to play again? (Y/N): ";
-    std::cin >> choice;
+    Actions action;
+    while (true) {
+        std::cout << "Do you want to play again? (Y/N): " << std::endl;
+        action = handler_.get_action();
 
-    if (choice == 'Y' || choice == 'y') {
-        start();
-    } else {
-        std::cout << "Thank you for playing! Goodbye." << std::endl;
-        exit(0);
+        if (action == Actions::kYes) 
+            start();
+        else if (action == Actions::kNo) {
+            std::cout << "Thank you for playing! Goodbye." << std::endl;
+            exit(0);
+        } else
+            continue;
     }
 }
+
+Game::Game(Handler& handler) : handler_(handler) {}

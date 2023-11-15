@@ -7,6 +7,8 @@
 #define MIN_X 0
 #define MIN_Y 0
 
+#include <iostream>
+
 class Player {
  public:
    int get_health() const;

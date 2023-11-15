@@ -1,6 +1,7 @@
 #ifndef OOP_HEADERS_EVENT_MOVE_H_
 #define OOP_HEADERS_EVENT_MOVE_H_
 
+#include "control.h"
 #include "event.h"
 
 class EventMove : public Event {

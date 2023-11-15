@@ -1,4 +1,3 @@
-#include "headers/control.h"
 #include "headers/event_health.h"
 
 void EventHealth::execute(Control& control) {

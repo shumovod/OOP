@@ -1,6 +1,8 @@
 #ifndef OOP_HEADERS_CELL_H_
 #define OOP_HEADERS_CELL_H_
 
+#include <iostream>
+
 #include "event.h"
 
 class Cell {

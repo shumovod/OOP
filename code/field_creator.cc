@@ -1,4 +1,3 @@
-#include "headers/control.h"
 #include "headers/field_creator.h"
 
 Field FieldCreator::level_one() {

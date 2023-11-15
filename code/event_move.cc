@@ -1,4 +1,3 @@
-#include "headers/control.h"
 #include "headers/event_move.h"
 
 void EventMove::execute(Control& control) {

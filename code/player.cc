@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "headers/player.h"
 
 int Player::get_health() const { 
@@ -20,10 +18,6 @@ int Player::get_y() const {
 
 void Player::set_health(int health) {
     health_ = health;
-    if (health == MIN_HEALTH) {
-        print_characteristics();
-        std::cout << "You died!" << std::endl;
-    } 
 }
 
 void Player::set_score(int score) { 
