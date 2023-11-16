@@ -28,20 +28,21 @@ void Game::choose_level() {
 }
 
 void Game::play() {
-    Control control(player_, field_);
+    Player player;
+    Control control(player, field_);
     Actions action;
     Directions direction;
 
     while (true) {
-        player_.print_characteristics();
-        field_.print_field(player_);
+        player.print_characteristics();
+        field_.print_field(player);
 
-        if (player_.get_health() <= MIN_HEALTH) {
+        if (player.get_health() <= MIN_HEALTH) {
             std::cout << "Game Over! You lost all your health." << std::endl;
             break;
         }
 
-        if (player_.get_x() == field_.get_exit_x() && player_.get_y() == field_.get_exit_y()) {
+        if (player.get_x() == field_.get_exit_x() && player.get_y() == field_.get_exit_y()) {
             std::cout << "Congratulations! You reached the exit." << std::endl;
             break;
         }

@@ -6,18 +6,17 @@
 
 class Game {
  public:
-   Game(Handler& handler);
    void start();
+   Game(Handler& handler);
 
- private:
-   void choose_level();
-   void play();
-   void end();
-   
+ private:   
    Handler& handler_;
    FieldCreator field_creator_;
    Field field_;
-   Player player_;
+
+   void choose_level();
+   void play();
+   void end();
 };
 
 #endif

@@ -1,0 +1,39 @@
+@startuml diagram_lb4
+
+hide circle
+skinparam classAttributeIconSize 0
+
+abstract class Input {
+    + reader(): virtual void
+}
+
+class InputTerminal {
+    + reader(): void override
+}
+
+class Handler {
+    - input_: Input&
+    - actions_: std::unordered_map<char, Actions> 
+    - convert_action(action: const std::string&)
+    --
+    + get_action(): Actions
+    + Handler(input: Input&, new_file: const std::string&)
+}
+
+class Game {
+    - handler_: Handler&
+    - field_creator_: FieldCreator
+    - field_: Field
+    - choose_level(): void
+    - play(): void
+    - end(): void
+    --
+    + start(): void
+    + Game(handler: Handler&)
+}
+
+Input <|.. InputTerminal
+Handler o-- Input : input_
+Game o-- Handler : handler_
+
+@enduml
