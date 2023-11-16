@@ -17,6 +17,8 @@ class Handler {
  private:
    Input& input_;
    std::unordered_map<char, Actions> actions_;
+
+   Actions convert_action(const std::string& action);
 };
 
 #endif

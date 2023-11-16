@@ -23,6 +23,7 @@ void Game::choose_level() {
             std::cout << "Invalid level. Try again." << std::endl;
             continue;
         }
+        system("cls");
     }
 }
 
@@ -68,6 +69,7 @@ void Game::play() {
                 continue;
         }
         control.move(direction);
+        system("cls");
     }
 }
 
@@ -84,6 +86,7 @@ void Game::end() {
             exit(0);
         } else
             continue;
+        system("cls");
     }
 }
 
