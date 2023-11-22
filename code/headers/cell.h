@@ -8,7 +8,10 @@
 class Cell {
  public:
     bool get_passability() const;
-    bool get_event() const;
+    bool is_event() const;
+
+    Event* get_event();
+
     void set_passability(bool passability); 
     void set_event(Event* event);
 

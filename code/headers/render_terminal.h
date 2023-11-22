@@ -1,6 +1,11 @@
 #ifndef OOP_HEADERS_RENDER_TERMINAL_H
 #define OOP_HEADERS_RENDER_TERMINAL_H
 
+#include <typeinfo>
+
+#include "event_health.h"
+#include "event_score.h"
+#include "event_move.h"
 #include "render.h"
 
 class RenderTerminal : public Render {

@@ -32,8 +32,12 @@ void RenderTerminal::print_field(Player& player, Field& field) const {
                 std::cout << "S ";
             else if (field.get_exit_x() == x && field.get_exit_y() == y)
                 std::cout << "F ";
-            else if (field.get_cell(x, y).get_event()) 
-                std::cout << "? ";
+            else if (field.get_cell(x, y).is_event() && typeid(*field.get_cell(x, y).get_event()) == typeid(EventHealth)) 
+                std::cout << "H ";
+            else if (field.get_cell(x, y).is_event() && typeid(*field.get_cell(x, y).get_event()) == typeid(EventScore)) 
+                std::cout << "S ";
+            else if (field.get_cell(x, y).is_event() && typeid(*field.get_cell(x, y).get_event()) == typeid(EventMove)) 
+                std::cout << "M ";
             else if (field.get_cell(x, y).get_passability())
                 std::cout << ". ";
             else 

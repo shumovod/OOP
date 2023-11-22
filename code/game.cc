@@ -33,7 +33,7 @@ void Game::play(Player& player, Handler& handler, Tracker& tracker) {
     Actions action;
     Directions direction;
 
-    while (action != Actions::kQuit) {
+    do {
         tracker.check_state(States::kPlay);
         if (player.get_health() <= MIN_HEALTH) {
             tracker.check_state(States::kLose);
@@ -64,7 +64,7 @@ void Game::play(Player& player, Handler& handler, Tracker& tracker) {
                 continue;
         }
         control.move(direction);
-    }
+    } while (action != Actions::kQuit);
 }
 
 void Game::end(Handler& handler, Tracker& tracker) {

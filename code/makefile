@@ -27,7 +27,7 @@ event_score: event_score.cc headers/control.h headers/event.h headers/event_scor
 event_move: event_move.cc headers/control.h headers/event.h headers/event_move.h
 	g++ -c event_move.cc
 
-field_creator: field_creator.cc headers/event_score.h headers/event_health.h headers/event_move.h headers/field.h headers/field_creator.h 
+field_creator: field_creator.cc headers/event_health.h headers/event_move.h headers/event_score.h headers/field.h headers/field_creator.h 
 	g++ -c field_creator.cc
 
 game: game.cc headers/field_creator.h headers/game.h headers/handler.h headers/tracker.h
@@ -42,7 +42,7 @@ handler: handler.cc headers/actions.h headers/handler.h headers/input.h
 render_terminal: render_terminal.cc headers/render.h headers/render_terminal.h 
 	g++ -c render_terminal.cc
 
-tracker: tracker.cc headers/render.h headers/states.h headers/tracker.h 
+tracker: tracker.cc headers/event_health.h headers/event_move.h headers/event_score.h headers/render.h headers/states.h headers/tracker.h 
 	g++ -c tracker.cc
 
 clean:

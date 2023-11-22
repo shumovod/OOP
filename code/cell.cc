@@ -4,8 +4,12 @@ bool Cell::get_passability() const {
     return passability_;
 }
 
-bool Cell::get_event() const {
+bool Cell::is_event() const {
     return event_ != nullptr;
+}
+
+Event* Cell::get_event() {
+    return event_;
 }
 
 void Cell::set_passability(bool passability) {
