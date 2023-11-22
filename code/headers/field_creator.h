@@ -8,10 +8,11 @@
 
 class FieldCreator {
  public:
-    Field level_one();
-    Field level_two();
+    Field& level_one();
+    Field& level_two();
 
  private: 
+    Field field_;
     EventHealth event_h_;
     EventScore event_s_;
     EventMove event_m_;
