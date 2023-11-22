@@ -50,26 +50,6 @@ void Field::set_exit(int x, int y) {
         std::cout << "Invalid exit coordinates!" << std::endl;
 }
 
-void Field::print_field(Player& player) const {
-     for (int y = 0; y < width_; y++) {
-        for (int x = 0; x < height_; x++) {
-            if (player.get_x() == x && player.get_y() == y)
-                std::cout << "P ";
-            else if (entrance_x_ == x && entrance_y_ == y)
-                std::cout << "S ";
-            else if (exit_x_ == x && exit_y_ == y)
-                std::cout << "F ";
-            else if (cells_[x][y].get_event()) 
-                std::cout << "? ";
-            else if (cells_[x][y].get_passability())
-                std::cout << ". ";
-            else 
-                std::cout << "# ";
-        }
-        std::cout << std::endl;
-    }
-}
-
 Field& Field::operator = (const Field& other) {
     if (this != &other) {
         Field tmp(other);

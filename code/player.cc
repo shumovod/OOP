@@ -32,11 +32,4 @@ void Player::set_y(int y) {
     y_ = y; 
 }
 
-void Player::print_characteristics() const {
-    std::cout << "Health: " << health_
-              << "  Score: " << score_
-              << "  (X: " << x_
-              << "; Y: " << y_ << ")" << std::endl;
-}
-
 Player::Player() : health_(MAX_HEALTH), score_(MIN_SCORE), x_(MIN_X), y_(MIN_Y) {}

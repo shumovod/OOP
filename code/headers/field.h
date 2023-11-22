@@ -2,7 +2,6 @@
 #define OOP_HEADERS_FIELD_H_
 
 #include "cell.h"
-#include "player.h"
 
 #define MIN_WIDTH 5
 #define MIN_HEIGHT 5
@@ -21,8 +20,6 @@ class Field {
 
     void set_entrance(int x, int y);
     void set_exit(int x, int y);
-
-    void print_field(Player& player) const;
 
     Field& operator = (const Field& other);
     Field& operator = (Field&& other) noexcept;

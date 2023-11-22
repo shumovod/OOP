@@ -3,6 +3,7 @@
 
 #include "directions.h"
 #include "field.h"
+#include "player.h"
 
 #define STEP_HEALTH 1
 #define STEP_SCORE 10

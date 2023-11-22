@@ -1,12 +1,11 @@
-#include <iostream>
-
 #include "headers/game.h"
 #include "headers/input_terminal.h"
+#include "headers/render_terminal.h"
 
 int main() {
-    InputTerminal terminal;
-    Handler handler(terminal, "../lb4/scheme");
-    Game game(handler);
+    InputTerminal input;
+    RenderTerminal render;
+    Game game(input, render);
     game.start();
 
     return 0;

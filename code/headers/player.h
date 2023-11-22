@@ -21,8 +21,6 @@ class Player {
    void set_x(int x);
    void set_y(int y);
 
-   void print_characteristics() const;
-
    Player();
 
  private:

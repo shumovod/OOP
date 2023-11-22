@@ -4,11 +4,11 @@ hide circle
 skinparam classAttributeIconSize 0
 
 abstract class Input {
-    + reader(): virtual void
+    + reader(): virtual char
 }
 
 class InputTerminal {
-    + reader(): void override
+    + reader(): char override
 }
 
 class Handler {
@@ -32,8 +32,22 @@ class Game {
     + Game(handler: Handler&)
 }
 
+enum Actions {
+    kMoveUp
+    kMoveDown 
+    kMoveLeft 
+    kMoveRight
+    kQuit
+    kYes
+    kNo
+    kLevel1
+    kLevel2
+    kUnknown
+}
+
 Input <|.. InputTerminal
 Handler o-- Input : input_
 Game o-- Handler : handler_
+Handler *-- Actions : actions_
 
 @enduml

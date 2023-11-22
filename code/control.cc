@@ -21,7 +21,7 @@ void Control::move(Directions direction, int step_move) {
             break;
     }
 
-    if (field_.get_cell(x, y).get_passability() && field_.check(x, y)) {
+    if (field_.check(x, y) && field_.get_cell(x, y).get_passability()) {
         player_.set_x(x);
         player_.set_y(y);
         if (field_.get_cell(x, y).get_event())

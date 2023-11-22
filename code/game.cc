@@ -1,17 +1,20 @@
 #include "headers/game.h"
 
 void Game::start() {
-    std::cout << "Welcome to the Game!" << std::endl;
-    choose_level();
-    play();
-    end();
+    Player player;
+    Handler handler(input_, "../lb4/scheme");
+    Tracker tracker(render_, player, field_);
+    tracker.check_state(States::kStart);
+    choose_level(handler, tracker);
+    play(player, handler, tracker);
+    end(handler, tracker);
 }
 
-void Game::choose_level() {
+void Game::choose_level(Handler& handler, Tracker& tracker) {
+    tracker.check_state(States::kLevel);
     Actions action;
     while (true) {
-        std::cout << "Choose a level (1 or 2): " << std::endl;
-        action = handler_.get_action();
+        action = handler.get_action();
 
         if (action == Actions::kLevel1) {
             field_ = field_creator_.level_one();
@@ -20,38 +23,29 @@ void Game::choose_level() {
             field_ = field_creator_.level_two();
             break;  
         } else {
-            std::cout << "Invalid level. Try again." << std::endl;
             continue;
         }
-        system("cls");
     }
 }
 
-void Game::play() {
-    Player player;
+void Game::play(Player& player, Handler& handler, Tracker& tracker) {
     Control control(player, field_);
     Actions action;
     Directions direction;
 
-    while (true) {
-        player.print_characteristics();
-        field_.print_field(player);
-
+    while (action != Actions::kQuit) {
+        tracker.check_state(States::kPlay);
         if (player.get_health() <= MIN_HEALTH) {
-            std::cout << "Game Over! You lost all your health." << std::endl;
+            tracker.check_state(States::kLose);
             break;
         }
 
         if (player.get_x() == field_.get_exit_x() && player.get_y() == field_.get_exit_y()) {
-            std::cout << "Congratulations! You reached the exit." << std::endl;
+            tracker.check_state(States::kWin);
             break;
         }
 
-        std::cout << "Enter direction (w - up, a - left, s - down, d - right, q - quit): " << std::endl;
-        action = handler_.get_action();
-
-        if (action == Actions::kQuit)
-            break;
+        action = handler.get_action();
 
         switch (action) {
             case Actions::kMoveUp:
@@ -70,25 +64,22 @@ void Game::play() {
                 continue;
         }
         control.move(direction);
-        system("cls");
     }
 }
 
-void Game::end() {
+void Game::end(Handler& handler, Tracker& tracker) {
+    tracker.check_state(States::kNewGame);
     Actions action;
     while (true) {
-        std::cout << "Do you want to play again? (Y/N): " << std::endl;
-        action = handler_.get_action();
-
+        action = handler.get_action();
         if (action == Actions::kYes) 
             start();
         else if (action == Actions::kNo) {
-            std::cout << "Thank you for playing! Goodbye." << std::endl;
+            tracker.check_state(States::kEnd);
             exit(0);
         } else
             continue;
-        system("cls");
     }
 }
 
-Game::Game(Handler& handler) : handler_(handler) {}
+Game::Game(Input& input, Render& render) : input_(input), render_(render) {}
