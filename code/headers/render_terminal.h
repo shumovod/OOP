@@ -16,6 +16,7 @@ class RenderTerminal : public Render {
     void print_lose() const override;
     void print_player(Player& player) const override;
     void print_field(Player& player, Field& field) const override;
+    void print_game() const override;
     void print_new_game() const override;
     void print_end() const override;
 };

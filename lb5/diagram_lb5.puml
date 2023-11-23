@@ -1,0 +1,42 @@
+@startuml diagram_lb5
+
+hide circle
+skinparam classAttributeIconSize 0
+
+class Tracker {
+    - render_: Render&
+    - player_: Player&
+    - field_: Field&
+    --
+    + check_state(state: States): void 
+    + Tracker(render: Render&, player: Player&, field: Field&)
+}
+
+abstract class Render { 
+    + print_start(): virtual void 
+    + print_level(): virtual void 
+    + print_win(): virtual void 
+    + print_lose(): virtual void 
+    + print_player(player: Player&): virtual void
+    + print_field(player: Player&, field: Field&): virtual void
+    + print_game(): virtual void
+    + print_new_game(): virtual void
+    + print_end(): virtual void
+}
+
+class RenderTerminal {
+    + print_start(): void override
+    + print_level(): void override
+    + print_win(): void override
+    + print_lose(): void override
+    + print_player(player: Player&): void override
+    + print_field(player: Player&, field: Field&): void override
+    + print_game(): void override
+    + print_new_game(): void override
+    + print_end(): void override
+}
+
+Tracker o-- Render : render_
+Render <|.. RenderTerminal
+
+@enduml

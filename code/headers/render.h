@@ -12,6 +12,7 @@ class Render {
     virtual void print_lose() const = 0;
     virtual void print_player(Player& player) const = 0;
     virtual void print_field(Player& player, Field& field) const = 0;
+    virtual void print_game() const = 0;
     virtual void print_new_game() const = 0;
     virtual void print_end() const = 0;
 };

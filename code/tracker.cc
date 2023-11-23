@@ -1,7 +1,6 @@
 #include "headers/tracker.h"
 
 void Tracker::check_state(States state) const {
-    system("cls");
     switch (state) {
         case States::kStart:
             render_.print_start();
@@ -10,8 +9,10 @@ void Tracker::check_state(States state) const {
             render_.print_level();
             break;
         case States::kPlay:
+            system("cls");
             render_.print_player(player_);
             render_.print_field(player_, field_);
+            render_.print_game();
             break;
         case States::kLose:
             render_.print_lose();

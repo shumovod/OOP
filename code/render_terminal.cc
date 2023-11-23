@@ -45,6 +45,9 @@ void RenderTerminal::print_field(Player& player, Field& field) const {
         }
         std::cout << std::endl;
     }
+}
+
+void RenderTerminal::print_game() const {
     std::cout << "Enter direction (w - up, a - left, s - down, d - right, q - quit): " << std::endl;
 }
 
