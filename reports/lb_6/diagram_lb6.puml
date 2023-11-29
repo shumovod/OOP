@@ -1,0 +1,81 @@
+@startuml diagram_lb6
+
+hide circle
+skinparam classAttributeIconSize 0
+left to right direction
+
+abstract class Message {
+    + get_message(): std::string
+}
+
+class MessageWin {
+    - player_: Player&
+    --
+    + get_message(): std::string 
+    + MessageWin(player: Player&)
+}
+
+class MessageLose {
+    - player_: Player&
+    --
+    + get_message(): std::string 
+    + MessageLose(player: Player&)
+}
+
+class MessageNewGame {
+    - field_: Field&
+    --
+    + get_message(): std::string 
+    + MessageNewGame(field: Field&) 
+}
+
+class MessageKeyCommand {
+    - handler_: Handler&
+    - command_: std::unordered_map <Actions, std::string>
+    --
+    + get_message(): std::string 
+    + MessageKeyCommand(handler: Handler&) 
+}
+
+class MessageKey {
+    - handler_: Handler&
+    --
+    + get_message(): std::string 
+    + MessageKey(handler: Handler&) 
+}
+
+abstract class Logger {
+    + log(message: Message*): void
+}
+
+class LoggerTerminal {
+    + log(message: Message*): void
+}
+
+class LoggerFile {
+    - file: std::ofstream
+    --
+    + log(message: Message*): void
+    + LoggerFile()
+    + ~LoggerFile()
+}
+
+class LoggerTerminalFile {
+    - logger_terminal_: LoggerTerminal
+    - logger_file_: LoggerFile
+    --
+    + log(message: Message*): void
+}
+
+Message <|.. MessageWin
+Message <|.. MessageLose
+Message <|.. MessageNewGame
+Message <|.. MessageKeyCommand
+Message <|.. MessageKey
+Logger <|.. LoggerTerminal
+Logger <|.. LoggerFile
+Logger <|.. LoggerTerminalFile
+Message <.. Logger
+
+
+@enduml
