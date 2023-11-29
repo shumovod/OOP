@@ -1,49 +1,24 @@
+include lb_1/makefile
+include lb_2/makefile
+include lb_3/makefile
+include lb_4/makefile
+include lb_5/makefile
+include lb_6/makefile
+
+LB_1 = player.o control.o
+LB_2 = cell.o field.o
+LB_3 = event_health.o event_move.o event_score.o field_creator.o
+LB_4 = game.o input_terminal.o handler.o
+LB_5 = render_terminal.o tracker.o
+LB_6 = message_win.o message_lose.o message_new_game.o message_key_command.o message_key.o logger_terminal.o logger_file.o logger_terminal_file.o
+
 all: prog clean
 
-prog: player control cell field event_health event_score event_move field_creator game input_terminal handler render_terminal tracker main
-	g++ player.o control.o cell.o field.o event_health.o event_score.o event_move.o field_creator.o game.o input_terminal.o handler.o render_terminal.o tracker.o main.o -o prog
+prog: main.o ${LB_1} ${LB_2} ${LB_3} ${LB_4} ${LB_5} ${LB_6}
+	g++ main.o ${LB_1} ${LB_2} ${LB_3} ${LB_4} ${LB_5} ${LB_6} -o prog
 
-main: main.cc headers/game.h headers/input_terminal.h headers/render_terminal.h
+main.o: main.cc lb_4/headers/game.h lb_4/headers/input_terminal.h lb_5/headers/render_terminal.h
 	g++ -c main.cc
 
-player: player.cc headers/player.h
-	g++ -c player.cc 
-
-control: control.cc headers/control.h headers/directions.h headers/field.h headers/player.h
-	g++ -c control.cc
-
-cell: cell.cc headers/cell.h headers/event.h
-	g++ -c cell.cc
-
-field: field.cc headers/cell.h headers/field.h
-	g++ -c field.cc
-
-event_health: event_health.cc headers/control.h headers/event.h headers/event_health.h
-	g++ -c event_health.cc
-
-event_score: event_score.cc headers/control.h headers/event.h headers/event_score.h
-	g++ -c event_score.cc
-
-event_move: event_move.cc headers/control.h headers/event.h headers/event_move.h
-	g++ -c event_move.cc
-
-field_creator: field_creator.cc headers/event_health.h headers/event_move.h headers/event_score.h headers/field.h headers/field_creator.h 
-	g++ -c field_creator.cc
-
-game: game.cc headers/field_creator.h headers/game.h headers/handler.h headers/tracker.h
-	g++ -c game.cc
-
-input_terminal: input_terminal.cc headers/input.h headers/input_terminal.h 
-	g++ -c input_terminal.cc
-
-handler: handler.cc headers/actions.h headers/handler.h headers/input.h
-	g++ -c handler.cc
-
-render_terminal: render_terminal.cc headers/render.h headers/render_terminal.h 
-	g++ -c render_terminal.cc
-
-tracker: tracker.cc headers/event_health.h headers/event_move.h headers/event_score.h headers/render.h headers/states.h headers/tracker.h 
-	g++ -c tracker.cc
-
 clean:
-	rm main.o player.o control.o cell.o field.o event_health.o event_score.o event_move.o field_creator.o game.o input_terminal.o handler.o render_terminal.o tracker.o
+	rm *o
