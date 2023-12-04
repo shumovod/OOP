@@ -1,7 +1,7 @@
 #include "headers/message_key_command.h"
 
 std::string MessageKeyCommand::get_message() {
-    return "A key was entered " + std::string(1, handler_.get_last_key()) + ", and the command was executed " + command_[handler_.get_last_action()] + " !";
+    return "A key was entered " + std::string(1, handler_.get_last_key()) + ", and the command was executed " + command_[handler_.get_last_action()] + "!";
 }
 
 MessageKeyCommand::MessageKeyCommand(Handler& handler) : handler_(handler) {

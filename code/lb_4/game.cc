@@ -95,15 +95,19 @@ void Game::play(Player& player, Handler& handler, Tracker& tracker) {
 
         switch (action) {
             case Actions::kMoveUp:
+                tracker.check_state(States::kKeyCommand, logger_);
                 direction = Directions::kUp;
                 break;
             case Actions::kMoveLeft:
+                tracker.check_state(States::kKeyCommand, logger_);
                 direction = Directions::kLeft;
                 break;
             case Actions::kMoveDown:
+                tracker.check_state(States::kKeyCommand, logger_);
                 direction = Directions::kDown;
                 break;
             case Actions::kMoveRight:
+                tracker.check_state(States::kKeyCommand, logger_);
                 direction = Directions::kRight;
                 break;
             case Actions::kQuit:
@@ -113,7 +117,6 @@ void Game::play(Player& player, Handler& handler, Tracker& tracker) {
                 tracker.check_state(States::kKey, logger_);
                 continue;
         }
-        tracker.check_state(States::kKeyCommand, logger_);
         control.move(direction);
     } while (action != Actions::kQuit);
 }

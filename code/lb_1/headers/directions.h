@@ -5,7 +5,8 @@ enum class Directions {
     kUp, 
     kDown, 
     kLeft, 
-    kRight
+    kRight,
+    kBack
 };
 
 #endif 

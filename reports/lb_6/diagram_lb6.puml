@@ -76,6 +76,8 @@ Logger <|.. LoggerTerminal
 Logger <|.. LoggerFile
 Logger <|.. LoggerTerminalFile
 Message <.. Logger
+LoggerTerminalFile *-- LoggerTerminal
+LoggerTerminalFile *-- LoggerFile
 
 
 @enduml
