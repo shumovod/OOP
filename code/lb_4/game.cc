@@ -27,15 +27,16 @@ void Game::need_logger(Handler& handler, Tracker& tracker) {
                 action = handler.get_action();
                 if (action == Actions::kOne) {
                     tracker.check_state(States::kKeyCommand, logger_);
-                    logger_ = new LoggerTerminal;
+                    logger_.push_back(new LoggerTerminal);
                     break;
                 } else if (action == Actions::kTwo) {
                     tracker.check_state(States::kKeyCommand, logger_);
-                    logger_ = new LoggerFile;
+                    logger_.push_back(new LoggerFile);
                     break;
                 } else if (action == Actions::kThree) {
                     tracker.check_state(States::kKeyCommand, logger_);
-                    logger_ = new LoggerTerminalFile;
+                    logger_.push_back(new LoggerTerminal);
+                    logger_.push_back(new LoggerFile);
                     break;
                 }
                 tracker.check_state(States::kKey, logger_);
@@ -43,9 +44,11 @@ void Game::need_logger(Handler& handler, Tracker& tracker) {
             break;
         } else if (action == Actions::kNo) {
             tracker.check_state(States::kKeyCommand, logger_);
-            if (logger_ != nullptr) {
-                delete logger_;
-                logger_ = nullptr;
+            if (!logger_.empty()) {
+                for (int i = 0; i < logger_.size(); i++) {
+                    delete logger_[i];
+                    logger_[i] = nullptr;
+                }
             }
             break;
         } 
@@ -139,9 +142,11 @@ void Game::end(Handler& handler, Tracker& tracker) {
     }
 }
 
-Game::Game(Input& input, Render& render) : input_(input), render_(render), logger_(nullptr), flag_(true) {}
+Game::Game(Input& input, Render& render) : input_(input), render_(render), flag_(true) {}
 
 Game::~Game() {
-    if (logger_ != nullptr)
-        delete logger_;
+    if (!logger_.empty()) {
+        for (int i = 0; i < logger_.size(); i++) 
+            delete logger_[i];
+    }
 }

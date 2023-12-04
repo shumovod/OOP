@@ -1,5 +1,4 @@
-all: message_win.o message_lose.o message_new_game.o message_key_command.o message_key.o logger_terminal.o logger_file.o logger_terminal_file.o
-
+all: message_win.o message_lose.o message_new_game.o message_key_command.o message_key.o logger_terminal.o logger_file.o
 message_win.o: lb_6/message_win.cc lb_6/headers/message_win.h lb_6/headers/message.h lb_1/headers/player.h
 	g++ -c lb_6/message_win.cc
 
@@ -20,6 +19,3 @@ logger_terminal.o: lb_6/logger_terminal.cc lb_6/headers/logger_terminal.h lb_6/h
 
 logger_file.o: lb_6/logger_file.cc lb_6/headers/logger_file.h lb_6/headers/logger.h
 	g++ -c lb_6/logger_file.cc
-
-logger_terminal_file.o: lb_6/logger_terminal_file.cc lb_6/headers/logger_terminal_file.h lb_6/headers/logger_file.h lb_6/headers/logger_terminal.h
-	g++ -c lb_6/logger_terminal_file.cc

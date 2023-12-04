@@ -1,11 +1,12 @@
 #ifndef OOP_HEADERS_GAME_H_
 #define OOP_HEADERS_GAME_H_
 
+#include <vector>
+
 #include "../../lb_3/headers/field_creator.h"
 #include "handler.h"
 #include "../../lb_6/headers/logger_file.h"
 #include "../../lb_6/headers/logger_terminal.h"
-#include "../../lb_6/headers/logger_terminal_file.h"
 #include "../../lb_5/headers/tracker.h"
 
 class Game {
@@ -19,7 +20,7 @@ class Game {
    Render& render_;
    FieldCreator field_creator_;
    Field field_;
-   Logger* logger_;
+   std::vector<Logger*> logger_;
    bool flag_;
 
    void need_logger(Handler& handler, Tracker& tracker);

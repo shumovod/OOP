@@ -1,6 +1,6 @@
 #include "headers/tracker.h"
 
-void Tracker::check_state(States state, Logger* logger) {
+void Tracker::check_state(States state, std::vector <Logger*> logger) {
     switch (state) {
         case States::kStart:
             render_.print_start();
@@ -15,8 +15,7 @@ void Tracker::check_state(States state, Logger* logger) {
             render_.print_level();
             break;
         case States::kGame:
-            if (logger != nullptr)
-                logger -> log(message_new_game_);
+            make_log(logger, message_new_game_);
             break;
         case States::kPlay:
             render_.print_player(player_);
@@ -25,13 +24,11 @@ void Tracker::check_state(States state, Logger* logger) {
             break;
         case States::kLose: 
             render_.print_lose();
-            if (logger != nullptr)
-                logger -> log(message_lose_);
+            make_log(logger, message_lose_);
             break;
         case States::kWin:
             render_.print_win();
-            if (logger != nullptr)
-                logger -> log(message_win_);
+            make_log(logger, message_win_);
             break;
         case States::kNewGame:
             render_.print_new_game();
@@ -41,13 +38,11 @@ void Tracker::check_state(States state, Logger* logger) {
             break;
         case States::kKeyCommand:
             render_.clear();
-            if (logger != nullptr)
-                logger -> log(message_key_command_);
+            make_log(logger, message_key_command_);
             break;
         case States::kKey:
             render_.clear();
-            if (logger != nullptr)
-                logger -> log(message_key_);
+            make_log(logger, message_key_);
             break;
     }
 }
@@ -71,4 +66,11 @@ Tracker::~Tracker() {
         delete message_key_command_;
     if (message_key_ != nullptr)
         delete message_key_;
+}
+
+void Tracker::make_log(std::vector <Logger*> logger, Message* message) {
+    if (!logger.empty()) {
+        for (int i = 0; i < logger.size(); i++) 
+            logger[i] -> log(message);
+    }
 }

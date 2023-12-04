@@ -10,8 +10,7 @@ LB_2 = cell.o field.o
 LB_3 = event_health.o event_move.o event_score.o field_creator.o
 LB_4 = game.o input_terminal.o handler.o
 LB_5 = render_terminal.o tracker.o
-LB_6 = message_win.o message_lose.o message_new_game.o message_key_command.o message_key.o logger_terminal.o logger_file.o logger_terminal_file.o
-
+LB_6 = message_win.o message_lose.o message_new_game.o message_key_command.o message_key.o logger_terminal.o logger_file.o 
 all: prog clean
 
 prog: main.o ${LB_1} ${LB_2} ${LB_3} ${LB_4} ${LB_5} ${LB_6}
