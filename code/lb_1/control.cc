@@ -3,7 +3,6 @@
 void Control::move(Directions direction, int step_move) {
     int x = player_.get_x();
     int y = player_.get_y();
-    int old_x = 0, old_y = 0;
     switch (direction) {
         case Directions::kUp:
             y -= step_move;
@@ -16,10 +15,6 @@ void Control::move(Directions direction, int step_move) {
             break;
         case Directions::kRight:
             x += step_move;
-            break;
-        case Directions::kBack:
-            x = old_x;
-            y = old_y;
             break;
     }
 

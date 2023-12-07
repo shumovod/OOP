@@ -18,7 +18,6 @@ class Game {
  private:   
    Input& input_;
    Render& render_;
-   FieldCreator field_creator_;
    Field field_;
    std::vector<Logger*> logger_;
    bool flag_;

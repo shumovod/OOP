@@ -8,6 +8,10 @@
 #include "../../lb_3/headers/event_score.h"
 #include "render.h"
 
+#include "../../lb_7/headers/ordinary_enemy.h"
+#include "../../lb_7/headers/damage_player.h"
+#include "../../lb_7/headers/random_move.h"
+
 class RenderTerminal : public Render {
  public:
     void print_start() const override;

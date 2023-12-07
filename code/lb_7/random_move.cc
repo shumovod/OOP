@@ -1,6 +1,6 @@
 #include "headers/random_move.h"
 
-void RandomMove::move(int& x, int& y) {
+void RandomMove::move(Player& player, Field& field, int& x, int& y) {
     int new_x, new_y;
     Directions direction;
     while (true) {
@@ -21,14 +21,10 @@ void RandomMove::move(int& x, int& y) {
             new_x++;
             break;
         }
-        if ((abs(player_.get_x() - new_x) == 1 && (abs(player_.get_y() - new_y) == 0)) || (abs(player_.get_x() - new_x) == 0 && (abs(player_.get_y() - new_y) == 1))) { 
-            if (field_.check(new_x, new_y) && field_.get_cell(new_x, new_y).get_passability()) {
-                x = new_x;
-                y = new_y;
-            }
+        if ((field.check(new_x, new_y) && field.get_cell(new_x, new_y).get_passability()) && (player.get_x() != new_x || player.get_y() != new_y)) {
+            x = new_x;
+            y = new_y;
             break;
         }
     }
 }
-
-RandomMove::RandomMove(Player& player, Field& field) : player_(player), field_(field) {}

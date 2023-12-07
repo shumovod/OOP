@@ -1,10 +1,16 @@
 #ifndef OOP_HEADERS_FIELD_CREATOR_H_
 #define OOP_HEADERS_FIELD_CREATOR_H_
 
-#include "../../lb_2/headers/field.h"
 #include "event_health.h"
-#include "event_score.h"
 #include "event_move.h"
+#include "event_score.h"
+#include "../../lb_2/headers/field.h"
+
+#include "../../lb_7/headers/ordinary_enemy.h"
+#include "../../lb_7/headers/damage_player.h"
+#include "../../lb_7/headers/random_move.h"
+#include "../../lb_7/headers/push_player.h"
+#include "../../lb_7/headers/search_player.h"
 
 class FieldCreator {
  public:

@@ -50,6 +50,15 @@ void Field::set_exit(int x, int y) {
         std::cout << "Invalid exit coordinates!" << std::endl;
 }
 
+std::vector <Enemy*> Field::get_enemy() const {
+    return enemy_;
+}
+
+void Field::add_enemy(Enemy* enemy) {
+    if (enemy != nullptr)
+        enemy_.push_back(enemy);
+}
+
 Field& Field::operator = (const Field& other) {
     if (this != &other) {
         Field tmp(other);
@@ -60,6 +69,13 @@ Field& Field::operator = (const Field& other) {
         std::swap(exit_x_, tmp.exit_x_);
         std::swap(exit_y_, tmp.exit_y_);
 
+        if (!enemy_.empty()) {
+            for (int i = 0; i < enemy_.size(); i++)
+                delete enemy_[i];
+            enemy_.clear();
+        }
+        std::swap(enemy_, tmp.enemy_);
+        
         if (width_ >= MIN_WIDTH && height_ >= MIN_HEIGHT) {
             if (cells_ != nullptr) {
                 for (int x = 0; x < width_; x++) 
@@ -86,12 +102,21 @@ Field& Field::operator = (Field&& other) noexcept {
         std::swap(entrance_y_, other.entrance_y_);
         std::swap(exit_x_, other.exit_x_);
         std::swap(exit_y_, other.exit_y_);
+
         if (cells_ != nullptr) {
             for (int x = 0; x < width_; x++) 
                 delete[] cells_[x];
             delete[] cells_;
         }
         std::swap(cells_, other.cells_);
+
+        // if (!enemy_.empty()) {
+        //     for (int i = 0; i < enemy_.size(); i++)
+        //         delete enemy_[i];
+        //     enemy_.clear();
+        // }
+        // std::swap(enemy_, other.enemy_);
+        enemy_.swap(other.enemy_);
 
         other.width_ = 0;
         other.height_ = 0;
@@ -100,11 +125,17 @@ Field& Field::operator = (Field&& other) noexcept {
         other.exit_x_ = 0;
         other.exit_y_ = 0;
         other.cells_ = nullptr;
+        for (int i = 0; i < other.enemy_.size(); i++)
+            other.enemy_[i] = nullptr;
+        other.enemy_.clear();
     }
     return *this;
 }
 
 Field::Field(const Field& other) : width_(other.width_), height_(other.height_), entrance_x_(other.entrance_x_), entrance_y_(other.entrance_y_), exit_x_(other.exit_x_), exit_y_(other.exit_y_) {
+    for (int i = 0; i < other.enemy_.size(); i++) 
+        enemy_.push_back(other.enemy_[i] -> create());
+
    if (width_ >= MIN_WIDTH && height_ >= MIN_HEIGHT) {
         cells_ = new Cell*[width_];
         for (int x = 0; x < width_; x++) {
@@ -124,6 +155,7 @@ Field::Field(Field&& other) noexcept {
     std::swap(exit_x_, other.exit_x_);
     std::swap(exit_y_, other.exit_y_);
     std::swap(cells_, other.cells_);
+    std::swap(enemy_, other.enemy_);
 
     other.width_ = 0;
     other.height_ = 0;
@@ -132,6 +164,9 @@ Field::Field(Field&& other) noexcept {
     other.exit_x_ = 0;
     other.exit_y_ = 0;
     other.cells_ = nullptr;
+    for (int i = 0; i < other.enemy_.size(); i++)
+            other.enemy_[i] = nullptr;
+        other.enemy_.clear();
 }
 
 Field::Field(int width, int height) : width_(width), height_(height) {
@@ -148,5 +183,11 @@ Field::~Field() {
         for (int i = 0; i < width_; i++)
             delete[] cells_[i];
         delete[] cells_;
+    }
+
+    if (!enemy_.empty()) {
+        for (int i = 0; i < enemy_.size(); i++)
+            delete enemy_[i];
+        enemy_.clear();
     }
 }

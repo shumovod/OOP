@@ -5,7 +5,7 @@
 
 class DamagePlayer {
  public:
-    void interact(Control& control);
+    static void interact(Player& player, Control& control, int& x, int& y);
 };
 
 #endif

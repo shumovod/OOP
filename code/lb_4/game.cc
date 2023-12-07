@@ -58,17 +58,18 @@ void Game::need_logger(Handler& handler, Tracker& tracker) {
 
 void Game::choose_level(Handler& handler, Tracker& tracker) {
     Actions action;
+    FieldCreator field_creator;
     while (true) {
         tracker.check_state(States::kLevel, logger_);
         action = handler.get_action();
 
         if (action == Actions::kOne) {
             tracker.check_state(States::kKeyCommand, logger_);
-            field_ = field_creator_.level_one();
+            field_ = field_creator.level_one();
             break;
         } else if (action == Actions::kTwo) {
             tracker.check_state(States::kKeyCommand, logger_);
-            field_ = field_creator_.level_two();
+            field_ = field_creator.level_two();
             break;  
         } 
         tracker.check_state(States::kKey, logger_);
@@ -83,7 +84,7 @@ void Game::play(Player& player, Handler& handler, Tracker& tracker) {
 
     do {
         tracker.check_state(States::kPlay, logger_);
-
+        
         if (player.get_health() <= MIN_HEALTH) {
             tracker.check_state(States::kLose, logger_);
             break;
@@ -121,6 +122,15 @@ void Game::play(Player& player, Handler& handler, Tracker& tracker) {
                 continue;
         }
         control.move(direction);
+        int player_x = player.get_x();
+        int player_y = player.get_y();
+        for (int i = 0; i < field_.get_enemy().size(); i++) {
+            field_.get_enemy()[i] -> move(player, field_);
+            int enemy_x = field_.get_enemy()[i] -> get_x();
+            int enemy_y = field_.get_enemy()[i] -> get_y();
+            if ((enemy_x == player_x - 1 && enemy_y == player_y) || (enemy_x == player_x + 1 && enemy_y == player_y) || (enemy_x == player_x && enemy_y == player_y - 1) || (enemy_x == player_x && enemy_y == player_y + 1))
+                field_.get_enemy()[i] -> interact(player, control);
+        }
     } while (action != Actions::kQuit);
 }
 
@@ -148,5 +158,6 @@ Game::~Game() {
     if (!logger_.empty()) {
         for (int i = 0; i < logger_.size(); i++) 
             delete logger_[i];
+        logger_.clear();
     }
 }

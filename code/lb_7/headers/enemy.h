@@ -1,22 +1,17 @@
 #ifndef OOP_HEADERS_ENEMY_H_
 #define OOP_HEADERS_ENEMY_H_
 
-#define MIN_X 0
-#define MIN_Y 0
+class Control;
+class Player;
+class Field;
 
-template <typename MoveScheme, typename InteractScheme>
 class Enemy {
  public:
-    int get_x() const;
-    int get_y() const;
-
-    void move();
-    void interact();
-
-    Enemy(int x = MIN_X, int y = MIN_Y);
-
- private:
-    int x_, y_;
+    virtual int get_x() const = 0;
+    virtual int get_y() const = 0;
+    virtual void move(Player& player, Field& field) = 0;
+    virtual void interact(Player& player, Control& control) = 0;
+    virtual Enemy* create() const = 0;
 };
 
 #endif

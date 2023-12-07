@@ -9,12 +9,7 @@
 
 class RandomMove {
  public:
-    void move(int& x, int& y);
-    RandomMove(Player& player, Field& field);
-
-  private:
-    Player& player_;
-    Field& field_;
+    static void move(Player& player, Field& field, int& x, int& y);
 };
 
 #endif

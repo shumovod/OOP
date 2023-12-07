@@ -1,7 +1,10 @@
 #ifndef OOP_HEADERS_FIELD_H_
 #define OOP_HEADERS_FIELD_H_
 
+#include <vector>
+
 #include "cell.h"
+#include "../../lb_7/headers/enemy.h"
 
 #define MIN_WIDTH 5
 #define MIN_HEIGHT 5
@@ -12,20 +15,27 @@ class Field {
 
     int get_width() const;
     int get_height() const;
+
     Cell& get_cell(int x, int y) const;
+
     int get_entrance_x() const;
     int get_entrance_y() const;
+
     int get_exit_x() const;
     int get_exit_y() const;
 
     void set_entrance(int x, int y);
     void set_exit(int x, int y);
 
+    std::vector <Enemy*> get_enemy() const;
+    void add_enemy(Enemy* enemy);
+
     Field& operator = (const Field& other);
     Field& operator = (Field&& other) noexcept;
 
     Field(const Field& other);
     Field(Field&& other) noexcept;
+
     Field(int width = MIN_WIDTH, int height = MIN_HEIGHT);
     ~Field();
     
@@ -34,6 +44,7 @@ class Field {
     int width_, height_;
     int entrance_x_, entrance_y_;
     int exit_x_, exit_y_;
+    std::vector <Enemy*> enemy_;
 };
 
 #endif

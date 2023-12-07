@@ -35,6 +35,18 @@ void RenderTerminal::print_player(Player& player) const {
 void RenderTerminal::print_field(Player& player, Field& field) const {
     for (int y = 0; y < field.get_width(); y++) {
         for (int x = 0; x < field.get_height(); x++) {
+            bool flag = false;
+            if (!field.get_enemy().empty()) {
+                for (int i = 0; i < field.get_enemy().size(); i++) {
+                    if (field.get_enemy()[i] -> get_x() == x && field.get_enemy()[i] -> get_y() == y) {
+                        std::cout << "E ";
+                        flag = true;
+                        break;
+                    }
+                }
+                if(flag)
+                    continue;
+            }  
             if (player.get_x() == x && player.get_y() == y)
                 std::cout << "P ";
             else if (field.get_entrance_x() == x && field.get_entrance_y() == y)
@@ -50,7 +62,7 @@ void RenderTerminal::print_field(Player& player, Field& field) const {
             else if (field.get_cell(x, y).get_passability())
                 std::cout << ". ";
             else 
-                std::cout << "# ";
+                std::cout << "# ";              
         }
         std::cout << std::endl;
     }
