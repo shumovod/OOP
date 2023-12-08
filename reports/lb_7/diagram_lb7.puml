@@ -1,0 +1,50 @@
+@startuml diagram_lb7
+
+hide circle
+skinparam classAttributeIconSize 0
+left to right direction
+
+abstract class Enemy {
+    + get_x(): int
+    + get_y(): int
+    + move(player: Player, field: Field): void
+    + interact(player: Player, control: Control): void
+    + create(): Enemy*
+}
+
+class OrdinaryEnemy << template (MoveScheme, InteractScheme) >> {
+    - x_: int
+    - y_: int
+    --
+    + get_x(): int
+    + get_y(): int
+    + move(player: Player, field: Field): void
+    + interact(player: Player, control: Control): void
+    + create(): Enemy*
+}
+
+class SearchPlayer {
+    + move(player: Player, field: Field, x: int&, y: int): void
+    --
+    - find(arr: int**, x: int, y: int, value: int, width: int&, height: int&): void
+}
+
+class RandomMove {
+    + move(player: Player, field: Field, x: int&, y: int): void
+}
+
+class DamagePlayer {
+    + interact(player: Player, control: Control, x: int&, y: int): void
+}
+
+class PushPlayer {
+    +interact(player: Player, control: Control, x: int&, y: int): void
+}
+
+Enemy <|.. OrdinaryEnemy
+OrdinaryEnemy <.. SearchPlayer
+OrdinaryEnemy <.. RandomMove
+OrdinaryEnemy <.. DamagePlayer
+OrdinaryEnemy <.. PushPlayer
+
+@enduml
